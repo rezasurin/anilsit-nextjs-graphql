@@ -2,6 +2,7 @@ import { usePagination } from "../hooks/usePagination";
 import { css } from "@emotion/react";
 
 import { DOTS } from "../hooks/usePagination";
+import { theme } from "../utils/theme";
 
 const paginationCls = (props) => css`
 
@@ -13,7 +14,7 @@ const paginationCls = (props) => css`
     padding: 0 12px;
     height: 32px;
     text-align: center;
-    margin: auto 4px;
+    margin: 0 auto;
     color: rgba(0, 0, 0, 0.87);
     display: flex;
     box-sizing: border-box;
@@ -35,7 +36,7 @@ const paginationCls = (props) => css`
     }
 
     &.selected {
-      background-color: rgba(0, 0, 0, 0.08);
+      background-color: ${theme.palette.accent.main};
     }
 
     .arrow {
@@ -96,23 +97,19 @@ export const Pagination = (props) => {
     return null;
   }
 
-  console.log(currentPage > 1 || `
-  &:hover {
-    background-color: rgba(0, 0, 0, 0.04);
-    cursor: pointer;
-  }`, "<< current page")
   const onNext = () => {
     onPageChange(currentPage + 1);
   };
-
+  
   const onPrevious = () => {
     onPageChange(currentPage - 1);
   };
   let lastPage = paginationRange[paginationRange.length - 1];
-
+  
+  console.log(currentPage , "<< current page")
   return (
     <ul css={paginationCls}>
-      <li onClick={onPrevious} className={`${currentPage === 1 && 'disabled'}`}>
+      <li onClick={onPrevious} className={`${currentPage <= 1 && 'disabled'}`}>
         <div className="arrow left" />
       </li>
       {paginationRange.map((pageNumber) => {
@@ -122,7 +119,7 @@ export const Pagination = (props) => {
         }
 
         // Render our Page Pills
-        return <li onClick={() => onPageChange(pageNumber)}>{pageNumber}</li>;
+        return <li className={`${pageNumber === currentPage && 'selected'}`} onClick={() => onPageChange(pageNumber)}>{pageNumber}</li>;
       })}
       {/*  Right Navigation arrow */}
       <li

@@ -34,3 +34,5 @@ export const responsive = (breakpoints, mapper) => {
     `)
   }
 }
+
+export const mediaQueries = (screen) => `@media screen and (min-width: ${screenSize[screen]}px)`

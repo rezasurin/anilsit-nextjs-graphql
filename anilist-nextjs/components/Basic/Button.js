@@ -1,25 +1,25 @@
 import styled from '@emotion/styled';
 import isPropValid from '@emotion/is-prop-valid';
 
-import { spacing, fontSizes } from '../utils/units';
-import { theme as defaultTheme, rounded, shadows, palette } from '../utils/theme';
-import { isObjectEmpty } from '../utils/helpers';
+import { spacing, fontSizes } from '../../utils/units';
+import { theme as defaultTheme, rounded, shadows, palette } from '../../utils/theme';
+import { isObjectEmpty } from '../../utils/helpers';
 
 const buttonSizeProps = {
-  small: {
-    fontSize: fontSizes['xs'],
-    padding: `${spacing.xs} ${spacing.xs}`,
-    borderRadius: `${spacing.xs}`
-  },
-  medium: {
+  sm: {
     fontSize: fontSizes['sm'],
-    padding: `${spacing.sm} ${spacing.md}`,
-    borderRadius: `${spacing.md}`
+    padding: `0 ${spacing.md}`,
+    height: '2rem'
   },
-  large: {
+  md: {
+    fontSize: fontSizes['base'],
+    padding: `0 1.25rem`,
+    height: '2.5rem'
+  },
+  lg: {
     fontSize: fontSizes['md'],
-    padding: `${spacing.md} ${spacing.lg}`,
-    borderRadius: `${spacing.lg}px`
+    padding: `0 ${spacing.lg}`,
+    height: '3rem'
   }
 }
 
@@ -96,16 +96,19 @@ const StyledButton = ({
   }
   const fontSizeBySize = buttonSizeProps[size]?.fontSize
   const paddingBySize = buttonSizeProps[size]?.padding
+  const heightBySize = buttonSizeProps[size]?.height
   const propsByVariant = getPropsByVariant({ variant, theme, color, rounded})
 
   return {
     cursor: 'pointer',
     fontWeight: 500,
     opacity: disabled && 0.7,
-    padding: buttonSizeProps.medium.padding,
-    fontSize: buttonSizeProps.medium.fontSize,
+    padding: paddingBySize,
+    height: heightBySize,
+    margin: '0 0.25rem',
+    fontSize: buttonSizeProps.md.fontSize,
     fontFamily: theme.typography.fontFamily,
-    borderRadius: theme.rounded[rounded],
+    borderRadius: '999px',
     boxShadow: dropShadow && theme.shadows[1],
     ...(propsByVariant && propsByVariant.main),
     ...(paddingBySize && {padding: paddingBySize}),

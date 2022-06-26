@@ -5,9 +5,11 @@ import client from "../config/graphql";
 
 const AnimeContext = createContext()
 
-export const getAnime = async () => {
+export const getAnime = async (props) => {
+  const { page } = props
   const { data, loading, error} = await client.query({
-    query: GET_ANIME_LIST
+    query: GET_ANIME_LIST,
+    variables: {page}
   })
 
   return {
@@ -18,6 +20,7 @@ export const getAnime = async () => {
 }
 
 export const AnimeProvider = ({children}) => {
+  const [currentPage, setCurrentPage] = useState(1)
   const [animeList, setAnimeList] = useState([])
 
   // useEffect(() => {

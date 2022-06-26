@@ -13,12 +13,16 @@
     "@emotion/is-prop-valid": "^1.1.3",
     "@emotion/react": "^11.9.3",
     "@emotion/styled": "^11.9.3",
+    "@popperjs/core": "^2.11.5",
     "design-system-utils": "^1.5.0",
     "graphql": "^16.5.0",
+    "less-loader": "^11.0.0",
     "next": "12.1.6",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "react-responsive": "^9.0.0-beta.10"
+    "react-popper": "^2.3.0",
+    "react-responsive": "^9.0.0-beta.10",
+    "rsuite": "^5.15.1"
   },
   "devDependencies": {
     "@emotion/babel-plugin": "^11.9.2",

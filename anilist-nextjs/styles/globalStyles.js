@@ -25,9 +25,9 @@ const globalStyles = (
             font-size:20px;
         }
       }
-      h1 { font-size: 3em; line-height: 1; margin-bottom: 0.5em; }
+      h1 { font-size: 3em; line-height: 1; margin-bottom: 0.5em;text-transform: capitalize; }
       h2 {
-        font-size: calc(1.5em * var(--text-multiplier));
+        font-size: 2.75em; line-height: 0.75; margin-bottom: 0.5em;text-transform: capitalize;
       }
     `}
   />

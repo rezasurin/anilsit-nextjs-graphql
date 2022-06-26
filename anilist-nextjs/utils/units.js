@@ -25,7 +25,6 @@ export const fontSizes = {
   xl: '1.266rem',
   xxl: '1.424rem',
   xxxl: '1.875rem',
-  multiplier: 1.5
 };
 
 export const headingSize = {

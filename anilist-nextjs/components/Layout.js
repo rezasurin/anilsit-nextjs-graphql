@@ -19,6 +19,7 @@ const StyledContainer = ({justify, screenSize}) => {
     width: '100%',
     display: 'flex',
     flexDirection: 'column',
+    height: '100%',
     alignItems: 'center',
     backgroundColor: `${theme.palette.primary.main}`
   }

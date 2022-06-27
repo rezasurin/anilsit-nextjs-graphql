@@ -1,5 +1,7 @@
 
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
+const withPWA = require('next-pwa')
+const runtimeCaching = require('next-pwa/cache')
 
 const nextConfig = {
   webpack: (config, {buildId, dev, isServer, defaultLoaders, nextRuntime, webpack}) => {
@@ -16,7 +18,11 @@ const nextConfig = {
     )
     
     return config
+  },
+  pwa: {
+    dest: 'public',
+    runtimeCaching
   }
 }
 
-module.exports = nextConfig
+module.exports = process.env.NODE_ENV === 'development' ?  nextConfig : withPWA(nextConfig)

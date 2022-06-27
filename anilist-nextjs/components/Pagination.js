@@ -8,13 +8,12 @@ const paginationCls = (props) => css`
 
   display: flex;
   list-style-type: none;
-  
+  justify-content: center;
 
   li {
     padding: 0 12px;
     height: 32px;
     text-align: center;
-    margin: 0 auto;
     color: rgba(0, 0, 0, 0.87);
     display: flex;
     box-sizing: border-box;
@@ -106,20 +105,20 @@ export const Pagination = (props) => {
   };
   let lastPage = paginationRange[paginationRange.length - 1];
   
-  console.log(currentPage , "<< current page")
+ 
   return (
     <ul css={paginationCls}>
       <li onClick={onPrevious} className={`${currentPage <= 1 && 'disabled'}`}>
         <div className="arrow left" />
       </li>
-      {paginationRange.map((pageNumber) => {
+      {paginationRange.map((pageNumber, idx) => {
         // If the pageItem is a DOT, render the DOTS unicode character
         if (pageNumber === DOTS) {
-          return <li className="pagination-item dots">&#8230;</li>;
+          return <li className="pagination-item dots" key={idx}>&#8230;</li>;
         }
 
         // Render our Page Pills
-        return <li className={`${pageNumber === currentPage && 'selected'}`} onClick={() => onPageChange(pageNumber)}>{pageNumber}</li>;
+        return <li key={idx} className={`${pageNumber === currentPage && 'selected'}`} onClick={() => onPageChange(pageNumber)}>{pageNumber}</li>;
       })}
       {/*  Right Navigation arrow */}
       <li

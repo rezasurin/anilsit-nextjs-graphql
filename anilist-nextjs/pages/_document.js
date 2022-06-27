@@ -5,6 +5,7 @@ function Document() {
   return (
     <Html>
       <Head>
+        <link rel="manifest" href="/manifest.json" />
         <link
           rel="preconnect"
           href="https://fonts.googleapis.com"

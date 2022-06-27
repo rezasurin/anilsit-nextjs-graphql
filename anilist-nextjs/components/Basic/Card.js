@@ -2,6 +2,7 @@ import { css } from "@emotion/react";
 import { screenSize, fontSizes, spacing } from "../../utils/units";
 import { theme } from "../../utils/theme";
 import { Button } from "./Button";
+import { useRouter } from "next/router";
 
 const cardMovieCss = css`
   display: grid;
@@ -90,17 +91,21 @@ const CardContent = (props) => {
 
 export const CardMovie = (props) => {
   const { onClick, item } = props;
+  const router = useRouter()
 
 
+  const handleClick = (item) => {
+    router.push(`/anime/${item?.id || item.animeId}/${item.title?.userPreferred || item.animeName}`)
+  }
   return (
     <div css={cardMovieCss}>
-      <CardMedia imgSrc={item.coverImage.large || props.item} />
+      <CardMedia imgSrc={item.coverImage?.large || item.animeCover} />
       <div className="item__overlay" css={itemOverlayCss}>
         <div className="item__body" css={itemBodyCss}>
           {/* <p>{props.title}</p> */}
           <div>
             <Button color="accent" size="md" rounded="sm"
-            onClick={(e) => onClick(item)}
+            onClick={(e) => handleClick(item)}
             >
               See detail
             </Button>

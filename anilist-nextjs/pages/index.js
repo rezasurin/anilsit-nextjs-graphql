@@ -10,6 +10,8 @@ import client from "../config/graphql";
 import { useState } from "react";
 import AnimeList from "../components/AnimeList";
 
+import Loading from "../components/Basic/Loading";
+
 const homeContainerCls = css`
   display: flex;
   flex-direction: column;
@@ -17,7 +19,7 @@ const homeContainerCls = css`
   align-items: center;
   width: 100%;
   height: 100%;
-  padding: 5rem 0;  
+  padding: 5rem 0;
 `
 
 const dataPerPage = 10
@@ -25,30 +27,12 @@ const dataPerPage = 10
 export default function Home({ animeList, pageInfo, loading }) {
   const [currentPage, setCurrentPage] = useState(1)
 
-
-  // console.log(animeList, "<<< FROM SSR");
-
-
-  console.log(currentPage, "< CURENT PAGE HOME")
+  if (loading) {
+    return <Loading />
+  }
 
   return (
     <div css={homeContainerCls}>
-      {/* <button
-        onClick={() => console.log(data, "<< INI DATA")}
-        css={css`
-          padding: 32px;
-          background-color: hotpink;
-          font-size: 24px;
-          border-radius: 4px;
-          color: black;
-          font-weight: bold;
-          &:hover {
-            color: white;
-          }
-        `}
-      >
-        THIS IS MY BUTTOn
-      </button> */}
 
       <AnimeList animeList={animeList} pageInfo={pageInfo} loading={loading} />
       
@@ -63,12 +47,6 @@ export async function getServerSideProps(props) {
     query: GET_ANIME_LIST,
     variables: {page: Number(query.page) || 1}
   });
-  if (data) {
-    console.log(Number(query.page), data, "<<< PROPS GETSERVERSIDE")
-
-  }
-
-  if (error) console.log(error, "<< ERROR")
 
   return {
     props: {

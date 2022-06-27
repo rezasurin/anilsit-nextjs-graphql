@@ -8,7 +8,7 @@ import { isObjectEmpty } from '../../utils/helpers';
 const buttonSizeProps = {
   sm: {
     fontSize: fontSizes['sm'],
-    padding: `0 ${spacing.md}`,
+    padding: `0 1rem`,
     height: '2rem'
   },
   md: {

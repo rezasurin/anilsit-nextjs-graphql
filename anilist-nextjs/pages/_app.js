@@ -3,7 +3,7 @@ import client from '../config/graphql'
 import { AnimeProvider } from '../contexts/anime'
 import CollectionProvider from '../contexts/collection'
 
-import { globalStyles } from '../styles/globalStyles'
+import { globalStyles } from '../assets/styles/globalStyles'
 import 'rsuite/dist/rsuite.min.css';
 
 import Layout from '../components/Layout'

@@ -13,8 +13,11 @@ import { Button } from "./Basic/Button";
 import { theme } from "../utils/theme";
 
 import { Pagination } from "../components/Pagination";
+import useBreakpoints from "../hooks/useBreakpoints";
+import { screenSize } from "../utils/units";
+import { mediaQueries } from "../utils/helpers";
 
-const AnimeData = (props) => {
+export const AnimeData = (props) => {
   const { anime, onClick } = props;
 
 
@@ -53,7 +56,7 @@ const AnimeData = (props) => {
               }
             `}
           >
-            {anime.title.userPreferred}
+            {anime.title ? anime.title.userPreferred : anime.animeName}
           </p>
       </div>
 
@@ -69,6 +72,7 @@ export default function AnimeList(props) {
   const router = useRouter()
   const [animeData, setAnimeData] = useState([])
   const [currentPage, setCurrentPage] = useState(1);
+  const screen = useBreakpoints()
 
   useEffect(() => {
     if (animeList) setAnimeData(animeList)
@@ -90,14 +94,6 @@ export default function AnimeList(props) {
     })
   }
 
-  const handleClickCard = (item) => {
-    console.log(item, "< btn clicked")
-    
-    const query = router.query
-    query.animeId=item.id
-
-    router.push(`/anime/${item.id}/${item.title.userPreferred}`)
-  }
 
   return (
     <>
@@ -109,7 +105,7 @@ export default function AnimeList(props) {
           gap: 10px;
           grid-auto-rows: minmax(10px, auto);
           margin: 12px 0 16px 0;
-          @media screen and (min-width: 600px) {
+          ${mediaQueries('md')} {
             grid-template-columns: repeat(5, 180px);
             gap: 24px;
             grid-auto-rows: minmax(20px, auto);
@@ -121,26 +117,15 @@ export default function AnimeList(props) {
             <Loading />
           </div>
         ) : (
-          animeList.map((anime, idx) => <AnimeData anime={anime} key={anime.id} onClick={handleClickCard} />)
+          animeList.map((anime, idx) => <AnimeData anime={anime} key={anime.id} />)
         )}
       </div>
-
       <Pagination
         currentPage={currentPage}
         totalCount={pageInfo?.total}
         pageSize={dataPerPage}
         onPageChange={handlePagination}
       />
-
-      <Button
-        variant="solid"
-        color="accent"
-        size="large"
-        dropShadow
-        rounded="sm "
-      >
-        Load more
-      </Button>
     </>
   );
 }

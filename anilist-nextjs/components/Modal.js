@@ -12,19 +12,6 @@ import ButtonToolbar from "rsuite/ButtonToolbar";
 
 const { StringType, NumberType } = Schema.Types;
 
-function asyncCheckCollection(collectionName) {
-  return new Promise(resolve => {
-    setTimeout(() => {
-      if (collectionName === 'abc') {
-        resolve(false);
-      } else {
-        resolve(true);
-      }
-    }, 500);
-  });
-}
-
-
 
 export const ModalBasic = (props) => {
   const formRef = useRef();
@@ -33,23 +20,30 @@ export const ModalBasic = (props) => {
     collectionName: "",
   });
   const { showModal, handleClose } = props;
-  const { checkCollection } = useContext(CollectionContext)
+  const { checkCollection } = useContext(CollectionContext);
+  
   const model = Schema.Model({
     collectionName: StringType()
       .addRule((value, data) => {
         return checkCollection(value);
       }, "Collection name already available")
-      .isRequired("This field is required."),
+      .addRule((value, data) => {
+        const rule = /^[A-Za-z]+$/
+
+        return value.match(rule) !== null
+      }, "Collection name must contain only letters.")
+      .isRequired("This field is required.")
   });
-  if (formError) console.log(formError, "< FORM ERROR")
-  
+  if (formError) console.log(formError, "< FORM ERROR");
+
   return (
     <Modal
       backdrop={true}
-      keyboard={false}
+      keyboard={true}
       open={showModal}
       onClose={handleClose}
       size="sm"
+      aria-labelledby="create-collection"
     >
       <Modal.Header>
         <Modal.Title>Create new collection</Modal.Title>
@@ -85,6 +79,7 @@ export const ModalBasic = (props) => {
               checkAsync
               name="collectionName"
               placeholder="Please enter abc"
+              // onKeydown={(event =>  /[a-zA-Z]/i.test(event.key))}
             />
           </Form.Group>
           <ButtonToolbar>
@@ -97,7 +92,9 @@ export const ModalBasic = (props) => {
               Cancel
             </Button>
             <Button
-              onClick={() => props.onSubmit(formValue.collectionName, props.anime)}
+              onClick={() =>
+                props.onSubmit(formValue.collectionName, props.anime)
+              }
               variant="solid"
               disabled={Object.keys(formError).length !== 0}
               size="md"
@@ -107,6 +104,37 @@ export const ModalBasic = (props) => {
             </Button>
           </ButtonToolbar>
         </Form>
+      </Modal.Body>
+    </Modal>
+  );
+};
+
+export const ModalAlert = (props) => {
+  const { children, onSubmit, showModal, onClose, title } = props;
+
+  return (
+    <Modal
+      backdrop={true}
+      keyboard={true}
+      open={showModal}
+      onClose={onClose}
+      size="sm"
+      aria-labelledby={title?.toLowerCase()}
+    >
+      <Modal.Header>
+        <Modal.Title>{title}</Modal.Title>
+      </Modal.Header>
+
+      <Modal.Body>
+        {children}
+        <ButtonToolbar>
+          <Button onClick={onClose} variant="outline" size="md" color="accent">
+            Cancel
+          </Button>
+          <Button onClick={onSubmit} variant="solid" size="md" color="accent">
+            Delete
+          </Button>
+        </ButtonToolbar>
       </Modal.Body>
     </Modal>
   );

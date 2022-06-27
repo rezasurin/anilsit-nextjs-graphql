@@ -34,7 +34,7 @@ const Nav = styled.nav`
   z-index: 10;
   background-color: black;
   ${mediaQueries('sm')} {
-    position: absolute;
+    position: fixed;
     height: 60px;
 
   }
@@ -78,7 +78,7 @@ console.log(mediaQueries('sm'), "<< mq")
       <ul>
         {
           menuItems.map((item, idx) => (
-            <li >
+            <li key={idx}>
               <Link
               id={item.id}
               href={`/${item.path}`}

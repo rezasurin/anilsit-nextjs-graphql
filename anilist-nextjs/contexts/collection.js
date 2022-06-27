@@ -13,21 +13,21 @@ const Storage = (collections) => {
 
 const CollectionReducer = (state, action) => {
   // console.log(action.payload, "<< payload")
+  const {collectionName, data} = action.payload
   switch (action.type) {
     case 'CREATE_COLLECTION':
       console.log(action.payload, "<< PAYLOAD COLLECTION")
       if (!state.collections.find((item) => item.collectionName === action.payload.collectionName)) {
         state.collections.push({
-          collectionName: action.payload.collectionName,
-          data: [{animeId: action.payload.animeId, animeCover: action.payload.animeCover, 
-            animeName: action.payload.animeName}]
-        })
-      } else {
-        console.log(action.payload," COLLECTION ALREADY AVAILABLE")
-        state.errorMsg = "COLLECTION ALREADY AVAILABLE"
-      }
-
-      if (state.collections) console.log(state.collections, "<< state collections")
+          collectionName: collectionName,
+          data: data !== null ? [data] : []
+          })
+        } else {
+          console.log(action.payload," COLLECTION ALREADY AVAILABLE")
+          state.errorMsg = "COLLECTION ALREADY AVAILABLE"
+        }
+        
+      if (action.payload) console.log(state.collections, "<< state collections")
       Storage(state.collections)
       return {
         ...state,
@@ -36,19 +36,15 @@ const CollectionReducer = (state, action) => {
       
     case 'ADD_OR_REMOVE_ITEM': 
     state.collections.forEach((item) => {
-      if (item.collectionName === action.payload.collectionName) {
-        if (!item.data.find((item) => item.animeId === action.payload.animeId)) {
+      if (item.collectionName === collectionName) {
+        if (!item.data.find((item) => item.animeId === data.animeId)) {
           console.log(action.payload, "<< PAYLOAD DI ADDORREMOVE")
-          item.data.push({
-            animeId: action.payload.animeId,
-            animeCover: action.payload.animeCover,
-            animeName: action.payload.animeName
-          })
+          item.data.push(action.payload.data)
 
           console.log(item.data, "you have added the items")
           // Storage(state.collections)
         } else {
-           item.data = item.data.filter(item => item.animeId !==action.payload.animeId)
+           item.data = item.data.filter(item => item.animeId !== data.animeId)
           // item.data = newData
           console.log(item.data, "you have removed the items")
           localStorage.removeItem('collections')
@@ -67,8 +63,12 @@ const CollectionReducer = (state, action) => {
     case 'REMOVE_COLLECTION':
       localStorage.removeItem('collections')
       const newCollection = state.collections.filter(item => item.collectionName !== action.payload.collectionName)
-
-      Storage(newCollection)
+      console.log(newCollection, "<< new collection")
+      if (newCollection.length !== 0) {
+        Storage(newCollection)
+      } else {
+        localStorage.removeItem('collections')
+      }
       
 
       return {

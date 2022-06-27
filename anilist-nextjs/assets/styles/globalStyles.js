@@ -1,6 +1,6 @@
 import { Global, css } from "@emotion/react";
-import { theme } from "../utils/theme";
-import { screenSize } from "../utils/units";
+import { theme } from "../../utils/theme";
+import { screenSize } from "../../utils/units";
 
 const globalStyles = (
   <Global 

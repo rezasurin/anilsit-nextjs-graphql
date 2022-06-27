@@ -14,55 +14,64 @@ import useBreakpoints from "../../hooks/useBreakpoints";
 import { Button } from "../../components/Basic/Button";
 import { mediaQueries } from "../../utils/helpers";
 
-import { createPopper} from '@popperjs/core'
+import { createPopper } from "@popperjs/core";
 
 import { PopupBox, PopupBox2 } from "../../components/Popover";
 import { ModalBasic } from "../../components/Modal";
 
 export default function AnimeDetail(props) {
   const { anime } = props;
-  const [showModal, setShowModal] = useState(false)
+  const [showModal, setShowModal] = useState(false);
   const router = useRouter();
   const screen = useBreakpoints();
   const slug = router.query.slug || [];
-  const { addOrRemoveItem, checkCollection, createCollection, collections } = useContext(CollectionContext)
+  const { addOrRemoveItem, checkCollection, createCollection, collections } =
+    useContext(CollectionContext);
   // console.log(router.query);
 
   const handleAddCollection = (collectionName) => {
     // console.log(JSON.parse(localStorage.getItem('collections', "< local storage")))
     // console.log(collections, "<<< COLLECTIONS STATE")
-    addOrRemoveItem({collectionName, animeId: anime.id, animeCover: anime.coverImage.medium, animeName: anime.title.userPreferred})
-  }
+    addOrRemoveItem({
+      collectionName,
+      data: {
+        animeId: anime.id,
+        animeCover: anime.coverImage.large,
+        animeName: anime.title.userPreferred,
+      },
+    });
+  };
 
-  const handleRemoveFromCollection = (item) => {
-    removeFromCollection(item)
-  }
-
-  const handleCloseModal = () => setShowModal(false)
+  const handleCloseModal = () => setShowModal(false);
 
   const handleCreateCollection = (collectionName, anime) => {
-    console.log(anime.id)
-    createCollection({collectionName, animeId: anime.id, animeCover: anime.coverImage.medium, animeName: anime.title.userPreferred})
-    setShowModal(false)
-  }
+    
+    createCollection({
+      collectionName,
+      data: {
+        animeId: anime.id,
+        animeCover: anime.coverImage.medium,
+        animeName: anime.title.userPreferred,
+      },
+    });
+    setShowModal(false);
+  };
 
-  if (collections.length !== 0) {
-    // console.log(localStorage.getItem("collections"), "<< INI COLLECTION DARI STATE")
-  }
+  
 
   const isInCollection = (anime) => {
-    let collectionName = []
-    
-    collections.forEach(item => {
-      item.data.forEach(data => {
+    let collectionName = [];
+
+    collections.forEach((item) => {
+      item.data.forEach((data) => {
         if (data.animeId === anime.id) {
-          collectionName.push(item.collectionName)
+          collectionName.push(item.collectionName);
         }
-      })
-    })
-    
-    return collectionName
-  }
+      });
+    });
+
+    return collectionName;
+  };
 
   return (
     <div
@@ -80,7 +89,7 @@ export default function AnimeDetail(props) {
           position: relative;
           margin-bottom: ${spacing.sm};
           top: -20px;
-          ${mediaQueries('md')} {
+          ${mediaQueries("md")} {
             width: 100vw;
             height: 240px;
           }
@@ -104,7 +113,7 @@ export default function AnimeDetail(props) {
             flex-direction: column;
             padding: 0 2rem;
             position: relative;
-            ${mediaQueries('md')} {
+            ${mediaQueries("md")} {
               flex-direction: row;
               top: -96px;
             }
@@ -115,7 +124,7 @@ export default function AnimeDetail(props) {
               width: 40vw;
               height: 100%;
               margin: 0 auto;
-              ${mediaQueries('md')} {
+              ${mediaQueries("md")} {
                 width: 200px;
                 margin-left: 2.5rem;
               }
@@ -136,21 +145,40 @@ export default function AnimeDetail(props) {
                 <Button onClick={() => handleAddCollection(anime)}>Add to collection</Button>
               } */}
 
-              <PopupBox setShowModal={setShowModal} collections={collections} handleAddCollection={handleAddCollection} isInCollection={isInCollection(anime)} />
-              <ModalBasic showModal={showModal} handleClose={handleCloseModal} onSubmit={handleCreateCollection} anime={anime} />
+              <PopupBox
+                setShowModal={setShowModal}
+                collections={collections}
+                handleAddCollection={handleAddCollection}
+                isInCollection={isInCollection(anime)}
+              >
+                <Button
+                  color="accent"
+                  size="md"
+                  rounded="sm"
+                  css={css`margin-top: 1.125rem;`}
+                >
+                  Add to Colelction
+                </Button>
+              </PopupBox>
+              <ModalBasic
+                showModal={showModal}
+                handleClose={handleCloseModal}
+                onSubmit={handleCreateCollection}
+                anime={anime}
+              />
             </div>
           </div>
           <div
             css={css`
               display: flex;
               flex-direction: column;
-              
+
               align-items: center;
               max-width: 64vw;
               margin: ${spacing.sm} auto;
               font-size: ${fontSizes["sm"]};
 
-              ${mediaQueries('md')} {
+              ${mediaQueries("md")} {
                 font-size: ${fontSizes["base"]};
                 top: 64px;
                 position: relative;
@@ -176,11 +204,11 @@ export const getServerSideProps = async (props) => {
     query: GET_ANIME_DETAIL,
     variables: { id: Number(query.slug[0]) },
   });
-  console.log(data);
-
   return {
     props: {
       anime: data.Media,
+      loading,
+      error
     },
   };
 };

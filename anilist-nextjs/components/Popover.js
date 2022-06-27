@@ -47,7 +47,7 @@ const tooltipCss = css`
 const popoverCss = css`
   background-color: red;
 `
-
+// eslint-disable-next-line react/display-name
 const Overlay = React.forwardRef(({ style, data, handleAddCollection,isInCollection, handleShowModal, ...rest }, ref) => {
   const styles = {
     ...style,
@@ -101,6 +101,7 @@ const Overlay = React.forwardRef(({ style, data, handleAddCollection,isInCollect
             data.map((item, idx) => (
 
               <Checkbox
+                name="collectionName"
                 value={item.collectionName}
                 key={idx}
                 checked={isInCollection.includes(item.collectionName)}
@@ -135,7 +136,9 @@ export const PopupBox = (props) => {
           return <Overlay style={{ left, top }}  handleAddCollection={handleAddCollection} data={collections} isInCollection={isInCollection} onClose={onClose} handleShowModal={handleShowModal} className={className} setShowModal={setShowModal} ref={ref} />;
         }
       }>
-        <Button color="accent">Active</Button>
+        {
+          props.children
+        }
       </Whisper>
     </>
   )

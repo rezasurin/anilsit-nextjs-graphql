@@ -1,8 +1,8 @@
 import React, { useRef, useState, useContext } from "react";
 
-import { CollectionContext } from "../contexts/collection";
+import { CollectionContext } from "../../contexts/collection";
 
-import { Button } from "./Basic/Button";
+import { Button } from "./Button";
 import { css } from "@emotion/react";
 
 import Modal from "rsuite/Modal";
@@ -34,7 +34,6 @@ export const ModalBasic = (props) => {
       }, "Collection name must contain only letters.")
       .isRequired("This field is required.")
   });
-  if (formError) console.log(formError, "< FORM ERROR");
 
   return (
     <Modal

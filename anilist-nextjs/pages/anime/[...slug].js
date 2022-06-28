@@ -3,11 +3,11 @@ import { useRouter } from "next/router";
 
 import { css } from "@emotion/react";
 
-import client from "../../config/graphql";
+import client from "../../graphql/config";
 
 import { CollectionContext } from "../../contexts/collection";
 
-import { GET_ANIME_DETAIL } from "../../services";
+import { GET_ANIME_DETAIL } from "../../graphql";
 import { CardMedia } from "../../components/Basic/Card";
 import { fontSizes, screenSize, spacing } from "../../utils/units";
 import useBreakpoints from "../../hooks/useBreakpoints";
@@ -16,8 +16,9 @@ import { mediaQueries } from "../../utils/helpers";
 
 import { createPopper } from "@popperjs/core";
 
-import { PopupBox, PopupBox2 } from "../../components/Popover";
-import { ModalBasic } from "../../components/Modal";
+import { PopupBox, PopupBox2 } from "../../components/Basic/Popover";
+import { ModalBasic } from "../../components/Basic/Modal";
+import { theme } from "../../utils/theme";
 
 export default function AnimeDetail(props) {
   const { anime } = props;
@@ -45,7 +46,6 @@ export default function AnimeDetail(props) {
   const handleCloseModal = () => setShowModal(false);
 
   const handleCreateCollection = (collectionName, anime) => {
-    
     createCollection({
       collectionName,
       data: {
@@ -56,8 +56,6 @@ export default function AnimeDetail(props) {
     });
     setShowModal(false);
   };
-
-  
 
   const isInCollection = (anime) => {
     let collectionName = [];
@@ -103,6 +101,8 @@ export default function AnimeDetail(props) {
           @media screen and (min-width: ${screenSize.md}px) {
             margin-top: ${spacing.md};
             flex-direction: row;
+            min-height: 100vh;
+            max-height: 100%;
           }
         `}
       >
@@ -155,7 +155,9 @@ export default function AnimeDetail(props) {
                   color="accent"
                   size="md"
                   rounded="sm"
-                  css={css`margin-top: 1.125rem;`}
+                  css={css`
+                    margin-top: 1.125rem;
+                  `}
                 >
                   Add to Colelction
                 </Button>
@@ -187,10 +189,47 @@ export default function AnimeDetail(props) {
           >
             <h2>{slug[1]}</h2>
             <p>{anime.description}</p>
-            <p>{anime.type}</p>
-            <p>{anime.format}</p>
-            <p>{anime.popularity}</p>
-            <p>{anime.genres.join(" ")}</p>
+            <div style={{ display: "flex" }}>
+              <div
+                style={{
+                  padding: `0.25rem ${spacing.md}`,
+                  borderRadius: "999px",
+                  backgroundColor: `${theme.palette.primary.light}`,
+                  textAlign: "center",
+                  margin: `0.5rem ${spacing.md}`,
+                }}
+              >
+               <p>
+                  Type <br /> <span style={{color: 'yellowgreen'}}>{anime.type}</span>
+                </p>
+              </div>
+              <div
+                style={{
+                  padding: `0.25rem ${spacing.md}`,
+                  borderRadius: "999px",
+                  backgroundColor: `${theme.palette.primary.light}`,
+                  textAlign: "center",
+                  margin: `0.5rem ${spacing.md}`,
+                }}
+              >
+                <p>
+                  Format <br /> <span style={{color: 'yellowgreen'}}>{anime.format}</span>
+                </p>
+              </div>
+              <div
+                style={{
+                  padding: `0.25rem ${spacing.md}`,
+                  borderRadius: "999px",
+                  backgroundColor: `${theme.palette.primary.light}`,
+                  textAlign: "center",
+                  margin: `0.5rem ${spacing.md}`,
+                }}
+              >
+                <p>
+                  Genres <br /> <span style={{color: 'yellowgreen'}}>{anime.genres.join(" ")}</span>
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -199,16 +238,18 @@ export default function AnimeDetail(props) {
 }
 
 export const getServerSideProps = async (props) => {
-  const { query } = props;
+  const { params } = props;
+  const { slug } = params;
   const { data, loading, error } = await client.query({
     query: GET_ANIME_DETAIL,
-    variables: { id: Number(query.slug[0]) },
+    variables: { id: +slug[0] },
   });
+  console.log(data, "<<errpr");
   return {
     props: {
       anime: data.Media,
-      loading,
-      error
+      loading: loading || null,
+      error: error || null,
     },
   };
 };

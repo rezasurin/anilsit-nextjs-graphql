@@ -8,13 +8,13 @@ export const screenSize = {
 
 export const spacing = {
   none: 0,
-  xs: "8px",
-  sm: "12px",
-  md: "16px",
-  gutter: "24px",
-  lg: "32px",
-  xl: "48px",
-  xxl: "64px"
+  xs: "0.5rem",
+  sm: "0.75rem",
+  md: "1rem",
+  gutter: "1.5rem",
+  lg: "2rem",
+  xl: "2.5rem",
+  xxl: "3rem",
 };
 
 export const fontSizes = {

@@ -1,14 +1,14 @@
-import { fontSizes, screenSize, headingSize, spacing } from "../utils/units";
+import { fontSizes, screenSize, headingSize, spacing } from "../../utils/units";
 import { css } from '@emotion/react'
 import styled from '@emotion/styled'
 import Head from "next/head";
 import isPropValid from "@emotion/is-prop-valid";
 
-import { responsive, media } from "../utils/helpers";
+import { responsive, media } from "../../utils/helpers";
 
-import { theme } from "../utils/theme";
+import { theme } from "../../utils/theme";
 
-import useBreakpoints from "../hooks/useBreakpoints";
+import useBreakpoints from "../../hooks/useBreakpoints";
 
 import { H1 } from "./Heading";
 import { Menu } from "./Menu";

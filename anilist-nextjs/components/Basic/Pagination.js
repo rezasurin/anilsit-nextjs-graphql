@@ -1,8 +1,8 @@
-import { usePagination } from "../hooks/usePagination";
+import { usePagination } from "../../hooks/usePagination";
 import { css } from "@emotion/react";
 
-import { DOTS } from "../hooks/usePagination";
-import { theme } from "../utils/theme";
+import { DOTS } from "../../hooks/usePagination";
+import { theme } from "../../utils/theme";
 
 const paginationCls = (props) => css`
 
@@ -83,6 +83,8 @@ export const Pagination = (props) => {
     leftNumPage = 1,
     pageSize,
     currentPage,
+    lastPage,
+    hasNextPage,
   } = props;
 
   const paginationRange = usePagination({
@@ -90,6 +92,8 @@ export const Pagination = (props) => {
     totalCount,
     pageSize,
     leftNumPage,
+    lastPage,
+    hasNextPage
   });
 
   if (currentPage === 0 || paginationRange < 2) {
@@ -103,7 +107,6 @@ export const Pagination = (props) => {
   const onPrevious = () => {
     onPageChange(currentPage - 1);
   };
-  let lastPage = paginationRange[paginationRange.length - 1];
   
  
   return (

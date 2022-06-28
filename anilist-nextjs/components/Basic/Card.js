@@ -3,6 +3,7 @@ import { screenSize, fontSizes, spacing } from "../../utils/units";
 import { theme } from "../../utils/theme";
 import { Button } from "./Button";
 import { useRouter } from "next/router";
+import { PopupBox } from "./Popover";
 
 const cardMovieCss = css`
   display: grid;
@@ -103,7 +104,7 @@ export const CardMovie = (props) => {
       <div className="item__overlay" css={itemOverlayCss}>
         <div className="item__body" css={itemBodyCss}>
           {/* <p>{props.title}</p> */}
-          <div>
+          <div style={{display: 'flex', flexDirection: 'column', alignItems:'center'}}>
             <Button color="accent" size="md" rounded="sm"
             onClick={(e) => handleClick(item)}
             >

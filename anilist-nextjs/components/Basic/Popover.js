@@ -2,14 +2,16 @@ import React, { useRef, useState, useContext, useEffect } from "react";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 
-import { CollectionContext } from "../contexts/collection";
+import { CollectionContext } from "../../contexts/collection";
 
 
-import { Button } from "./Basic/Button";
+import { Button } from "./Button";
 import Popover from 'rsuite/Popover'
 import Whisper from 'rsuite/Whisper'
 import Dropdown from 'rsuite/Dropdown'
 import Checkbox from 'rsuite/Checkbox'
+import { fontSizes, spacing } from "../../utils/units";
+import { theme } from "../../utils/theme";
 
 
 export const PopupWrap = styled.div`
@@ -24,8 +26,6 @@ export const PopupWrap = styled.div`
   background-color: #281e36;
   
 `
-
-
 export const BoxDiv = styled.div`
   z-index: 40;
 `
@@ -91,11 +91,11 @@ const Overlay = React.forwardRef(({ style, data, handleAddCollection,isInCollect
 
   return (
     <div {...rest} style={styles} ref={ref}>
-      <p>
+      <p css={css`font-size: ${fontSizes.large}; text-align: center; color: ${theme.palette.accent.main}`}>
         Collection list
       </p>
-      <hr />
-      <div>
+      <hr style={{margin: `${spacing.sm} 0`}} />
+      <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'start', alignItems: 'start'}}>
         {
           data ? (
             data.map((item, idx) => (
@@ -103,6 +103,7 @@ const Overlay = React.forwardRef(({ style, data, handleAddCollection,isInCollect
               <Checkbox
                 name="collectionName"
                 value={item.collectionName}
+                css={css`font-size: ${fontSizes.large};`}
                 key={idx}
                 checked={isInCollection.includes(item.collectionName)}
                 onChange={() => handleChange(item.collectionName, idx)}
@@ -115,7 +116,9 @@ const Overlay = React.forwardRef(({ style, data, handleAddCollection,isInCollect
           <p> data not available</p>
         }
       </div>
-      <button onClick={handleShowModal}>Create collection</button>
+      <div style={{display: 'flex', justifyContent: 'center'}}>
+        <Button variant="outline" size="sm" color="accent" onClick={handleShowModal}>Create collection</Button>
+      </div>
     </div>
   );
 });

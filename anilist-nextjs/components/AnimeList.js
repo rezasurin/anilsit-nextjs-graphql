@@ -1,20 +1,13 @@
-import { useState, useMemo, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from 'next/router'
 
 import { css } from "@emotion/react";
 
-import { GET_ANIME_LIST } from "../services";
-import client from "../config/graphql";
+import { H1 } from "./Basic/Heading";
 
-import { H1 } from "../components/Heading";
-
-import { CardMovie } from "../components/Basic/Card";
-import { Button } from "./Basic/Button";
-import { theme } from "../utils/theme";
-
-import { Pagination } from "../components/Pagination";
+import { CardMovie } from "./Basic/Card";
+import { Pagination } from "./Basic/Pagination";
 import useBreakpoints from "../hooks/useBreakpoints";
-import { screenSize } from "../utils/units";
 import { mediaQueries } from "../utils/helpers";
 
 export const AnimeData = (props) => {
@@ -124,6 +117,8 @@ export default function AnimeList(props) {
         currentPage={currentPage}
         totalCount={pageInfo?.total}
         pageSize={dataPerPage}
+        lastPage = {pageInfo?.lastPage}
+        hasNextPage={pageInfo.hasNextPage}
         onPageChange={handlePagination}
       />
     </>

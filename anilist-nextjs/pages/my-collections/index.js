@@ -14,7 +14,7 @@ import { TrashIcon } from "@heroicons/react/outline";
 
 import Tooltip from "rsuite/Tooltip";
 import Whisper from "rsuite/Whisper";
-import { ModalAlert, ModalBasic } from "../../components/Modal";
+import { ModalAlert, ModalBasic } from "../../components/Basic/Modal";
 import { useModal } from "../../hooks/useModal";
 
 const containerCss = css`
@@ -34,6 +34,8 @@ const cardCollection = css`
   margin: 2rem 0;
   border-radius: 0.8125rem;
 `;
+
+import MyCollectionList from "../../components/MyCollectionList";
 
 export default function MyCollections() {
   const { collections, removeCollection, createCollection } =
@@ -75,95 +77,19 @@ export default function MyCollections() {
     <div css={containerCss}>
       <h1> My Collection Page</h1>
       <div style={{display: 'flex', flexDirection: 'column'}}>
-            <Button
-              variant="solid"
-              size="md"
-              color="accent"
-              onClick={() => setModalCreate(true)}
-            >
-              Create collections
-            </Button>
-        </div>
-
-      {collections?.map((item, idx) => (
-        <div key={idx} css={cardCollection}>
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "space-between",
-            }}
+          <Button
+            variant="solid"
+            size="md"
+            color="accent"
+            onClick={() => setModalCreate(true)}
           >
-            <p
-              css={css`
-                font-size: ${fontSizes["xxl"]};
-                margin: 0.5rem 0 0 0.75rem;
-                font-weight: 700;
-                text-transform: capitalize;
-              `}
-            >
-              {item.collectionName}
-            </p>
-            <Button
-              size="md"
-              color="accent"
-              onClick={() => handleClickDetail(item)}
-            >
-              View collection
-            </Button>
-          </div>
-          <div
-            style={{
-              margin: "0 2rem 0 0",
-              borderRadius: "2rem",
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-            }}
-          >
-            <div style={{ display: "flex", justifyContent: "flex-end" }}>
-              <Whisper
-                placement="top"
-                controlId="control-id-hover"
-                trigger="hover"
-                speaker={<Tooltip>Delete collection</Tooltip>}
-              >
-                <TrashIcon
-                  css={css`
-                    width: 1.5rem;
-                    left: 4.5rem;
-                    top: -0.25rem;
-                    position: relative;
-                    cursor: pointer;
+            Create collections
+          </Button>
+      </div>
 
-                    &:hover {
-                      color: ${theme.palette.primary.main};
-                      border-radius: 99px;
-                    }
-                  `}
-                  onClick={() => handleClickModal(item.collectionName)}
-                />
-              </Whisper>
-            </div>
-            {item.data ? (
-              <img
-                style={{ borderRadius: "0.5rem", width: "100px" }}
-                src={
-                  item.data.length !== 0
-                    ? item.data[item.data.length - 1].animeCover
-                    : "#"
-                }
-              />
-            ) : (
-              <img
-                style={{ borderRadius: "0.5rem" }}
-                src="#"
-                alt="cover-anime"
-              />
-            )}
-          </div>
-        </div>
-      ))}
+      <MyCollectionList handleClickDetail={handleClickDetail} handleClickModal={handleClickModal} />
+
+      
       <ModalBasic
         showModal={modalCreate}
         handleClose={setModalCreate}

@@ -1,8 +1,8 @@
 import styled from '@emotion/styled';
 import isPropValid from '@emotion/is-prop-valid';
-import useBreakpoints from '../hooks/useBreakpoints';
-import { theme } from '../utils/theme';
-import { headingSize } from '../utils/units';
+import useBreakpoints from '../../hooks/useBreakpoints';
+import { theme } from '../../utils/theme';
+import { headingSize } from '../../utils/units';
 
 const { h1 } = headingSize
 

@@ -4,8 +4,8 @@ import { css } from "@emotion/react";
 import { useQuery } from "@apollo/client/react";
 // import { getAnimeList } from '../config/graphql'
 
-import { GET_ANIME_LIST } from "../services";
-import client from "../config/graphql";
+import { GET_ANIME_LIST } from "../graphql";
+import client from "../graphql/config";
 
 import { useState } from "react";
 import AnimeList from "../components/AnimeList";

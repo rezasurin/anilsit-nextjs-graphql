@@ -13,14 +13,6 @@ export default function useBreakpoints() {
     size: screenSize
   }
 
-  // if (typeof window !== 'undefined' && window.matchMedia) {
-  //   Object.values(screenSize).map(
-  //     (breakpoint, index) =>
-  //       useMediaQuery({ query: `(min-width: ${breakpoint}})` }) &&
-  //       (screen = Object.keys(screenSize)[index])
-  //   );
-  //   console.log(useMediaQuery({ query: `(min-width: ${screenSize['sm']})` }))
-  // }
 
   if (screen.isSm) screen.active = "sm";
   if (screen.isMd) screen.active = "md";

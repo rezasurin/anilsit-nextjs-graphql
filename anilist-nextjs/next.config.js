@@ -12,9 +12,22 @@ const nextConfig = {
     config.optimization.minimizer.push(
       new CssMinimizerPlugin({
         minify: CssMinimizerPlugin.cleanCssMinify,
-        // Uncomment this line for options
-        // minimizerOptions: { compatibility: 'ie11,-properties.merging' },
       }),
+    )
+
+    config.module.rules.push(
+      {
+        test: /\.(gif|png|jpe?g)$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: '[name].[ext]',
+              outputPath: './src/assets/images/'
+            }
+          }
+        ]
+      }
     )
     
     return config
@@ -22,6 +35,9 @@ const nextConfig = {
   pwa: {
     dest: 'public',
     runtimeCaching
+  },
+  images: {
+    disableStaticImages: true
   }
 }
 

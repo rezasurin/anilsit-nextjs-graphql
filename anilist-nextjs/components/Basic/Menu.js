@@ -4,9 +4,9 @@ import { useState } from "react";
 
 import Link from 'next/link'
 import { useRouter } from "next/router";
-import { theme } from "../utils/theme";
-import { screenSize } from "../utils/units";
-import { mediaQueries, smScreen } from "../utils/helpers";
+import { theme } from "../../utils/theme";
+import { screenSize } from "../../utils/units";
+import { mediaQueries, smScreen } from "../../utils/helpers";
 
 const menuItems = [
   {
@@ -72,7 +72,6 @@ export const Menu = (props) => {
   const router = useRouter()
   // console.log(router.pathname, "<< ptaj")
   
-console.log(mediaQueries('sm'), "<< mq")
   return (
     <Nav >
       <ul>

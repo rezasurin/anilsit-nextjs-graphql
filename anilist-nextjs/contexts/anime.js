@@ -1,7 +1,7 @@
 import { createContext, useContext, useEffect, useState } from "react";
 
-import { GET_ANIME_LIST } from "../services";
-import client from "../config/graphql";
+import { GET_ANIME_LIST } from "../graphql";
+import client from "../graphql/config";
 
 const AnimeContext = createContext()
 

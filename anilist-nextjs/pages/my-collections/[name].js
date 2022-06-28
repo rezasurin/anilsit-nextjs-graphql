@@ -1,15 +1,10 @@
-import { useState, useContext } from "react";
+import { useContext } from "react";
 import { css } from "@emotion/react";
 
 import { CollectionContext } from "../../contexts/collection";
 import { theme } from "../../utils/theme";
-import { fontSizes } from "../../utils/units";
-
-import { Button } from "../../components/Basic/Button";
 
 import { useRouter } from "next/router";
-
-import { CardMovie } from "../../components/Basic/Card";
 
 import { AnimeData } from "../../components/AnimeList";
 
@@ -24,15 +19,6 @@ min-height: 100vh;
 padding: 5rem 0; 
 `;
 
-const cardCollection = css`
-  display: flex;
-  width: 100%;
-  padding: 1.125rem;
-  justify-content: space-between;
-  background-color: ${theme.palette.grey[400]};
-  margin: 2rem 0;
-  border-radius: 0.8125rem;
-`;
 
 export default function MyCollectionDetail() {
   const { collections, removeCollections } = useContext(CollectionContext);

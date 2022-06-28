@@ -13,8 +13,6 @@ import { TrashIcon } from "@heroicons/react/outline";
 
 import Tooltip from "rsuite/Tooltip";
 import Whisper from "rsuite/Whisper";
-import defaultImg from '/assets/images/images2.jpg'
-import Image from 'next/image'
 
 import Loading from "./Basic/Loading";
 
@@ -27,6 +25,8 @@ const cardCollection = css`
   margin: 2rem 0;
   border-radius: 0.8125rem;
 `;
+
+const defaultImg = "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/nx21-tXMN3Y20PIL9.jpg"
 
 export default function MyCollectionList(props) {
   const {handleClickDetail, handleClickModal } = props
@@ -107,13 +107,13 @@ export default function MyCollectionList(props) {
                 src={
                   item.data.length !== 0
                     ? item.data[0].animeCover
-                    : {defaultImg}
+                    : "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/nx21-tXMN3Y20PIL9.jpg"
                 }
               />
             ) : (
               <img
                 style={{ borderRadius: "0.5rem" }}
-                src="assets/images/images2.jpg"
+                src="https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/nx21-tXMN3Y20PIL9.jpg"
                 lazy
                 alt="cover-anime"
               />

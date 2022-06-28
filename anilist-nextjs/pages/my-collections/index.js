@@ -5,15 +5,8 @@ import { useRouter } from "next/router";
 
 import { CollectionContext } from "../../contexts/collection";
 import { theme } from "../../utils/theme";
-import { fontSizes } from "../../utils/units";
 
 import { Button } from "../../components/Basic/Button";
-import ButtonToolbar from "rsuite/ButtonToolbar";
-
-import { TrashIcon } from "@heroicons/react/outline";
-
-import Tooltip from "rsuite/Tooltip";
-import Whisper from "rsuite/Whisper";
 import { ModalAlert, ModalBasic } from "../../components/Basic/Modal";
 import { useModal } from "../../hooks/useModal";
 

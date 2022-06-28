@@ -14,9 +14,7 @@ import useBreakpoints from "../../hooks/useBreakpoints";
 import { Button } from "../../components/Basic/Button";
 import { mediaQueries } from "../../utils/helpers";
 
-import { createPopper } from "@popperjs/core";
-
-import { PopupBox, PopupBox2 } from "../../components/Basic/Popover";
+import { PopupBox } from "../../components/Basic/Popover";
 import { ModalBasic } from "../../components/Basic/Modal";
 import { theme } from "../../utils/theme";
 
